@@ -11,17 +11,17 @@ class MovieController {
     if (pageNumber) {
       db.query(`SELECT * FROM Phim LIMIT ${pageSize} OFFSET ${pageSize * (pageNumber - 1)}`, (err, data) => {
         if (err) {
-          res.json("Loi server")
+          res.status(500).json(err)
         }
-        res.json(data);
+        res.status(200).json(data);
       })
     }
     else {
       db.query(`SELECT * FROM Phim`, (err, data) => {
         if (err) {
-          res.json("Loi server")
+          res.status(500).json(err)
         }
-        res.json(data);
+        res.status(200).json(data);
       })
     }
   }
@@ -31,9 +31,9 @@ class MovieController {
     if (id) {
       db.query(`SELECT * FROM Phim WHERE Phim.MaPhim = '${id}'`, (err, data) => {
         if (err) {
-          res.json("Loi Server")
+          res.status(500).json(err)
         }
-        res.json(data)
+        res.status(200).json(data);
       })
     }
   }
@@ -42,9 +42,9 @@ class MovieController {
     const pageSize = 10
     db.query('SELECT COUNT(*) as Total from Phim', (err, data) => {
       if (err) {
-        res.json('Loi Server')
+        res.status(500).json(err)
       }
-      res.json(Math.ceil(data[0].Total / pageSize))
+      res.status(200).json(Math.ceil(data[0].Total / pageSize))
     })
   }
 }

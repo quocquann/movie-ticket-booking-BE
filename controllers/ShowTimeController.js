@@ -16,9 +16,9 @@ class ShowTimeController {
                        ON SuatChieu.MaPhongChieu = PhongChieu.MaPhongChieu JOIN RapChieu
                        ON PhongChieu.MaRapChieu = RapChieu.MaRapChieu WHERE SuatChieu.MaSuatChieu = '${showTimeId}'`, (err, data) => {
       if (err) {
-        res.json("Loi server")
+        res.status(500).json(err)
       }
-      res.json(data)
+      res.status(200).json(data)
     })
   }
 
@@ -39,9 +39,9 @@ class ShowTimeController {
                        ON SuatChieu.MaPhongChieu = PhongChieu.MaPhongChieu JOIN RapChieu
                        ON PhongChieu.MaRapChieu = RapChieu.MaRapChieu WHERE Phim.MaPhim = '${movieId}'`, (err, data) => {
         if (err) {
-          res.json("Loi server")
+          res.status(500).json(err)
         }
-        res.json(data)
+        res.status(200).json(data)
       })
     }
   }

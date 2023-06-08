@@ -13,23 +13,23 @@ class SeatStatusController {
                 ON Ghe.MaGhe = TrangThaiGhe.MaGhe AND SuatChieu.MaSuatChieu = TrangThaiGhe.MaSuatChieu
                 WHERE SuatChieu.MaSuatChieu = '${showTimeId}'`, (err, data) => {
         if (err) {
-          res.json("Loi server")
+          res.status(500).json(err)
         }
-        res.json(data)
+        res.status(200).json(data)
       })
     }
   }
 
   //[PUT]
   updateSeatStatus(req, res) {
-    console.log(req.body)
     const seatIds = req.body.seatIds
     const showTimeId = req.body.showTimeId
     seatIds.forEach((seatId) => {
       db.query(`UPDATE TrangThaiGhe SET TrangThaiGhe.TrangThai = 2 WHERE MaGhe = '${seatId}' AND MaSuatChieu = '${showTimeId}'`, (err) => {
         if (err) {
-          res.json("Loi server")
+          res.status(500).json(err)
         }
+        res.status(200)
       })
     })
 

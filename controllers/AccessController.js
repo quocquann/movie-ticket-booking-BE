@@ -8,7 +8,7 @@ class AccessController {
     const userId = jwt.verify(token, process.env.SECRET)
     db.query(`SELECT MaKH from KhachHang WHERE MaKH = '${userId}'`, (err, data) => {
       if (err) {
-        res.status(404)
+        res.status(500).json(err)
       }
       next()
     })
@@ -19,11 +19,11 @@ class AccessController {
     const password = req.body.password
     db.query(`SELECT MaKH, TenKH FROM KhachHang WHERE KhachHang.TenDangNhap = '${userName}' AND KhachHang.MatKhau = '${password}'`, (err, data) => {
       if (err) {
-        res.status(404)
+        res.status(500).json(err)
       }
       const accessToken = jwt.sign(data[0].MaKH, process.env.SECRET)
       const result = { ...data[0], accessToken }
-      res.json(result)
+      res.status(200).json(result)
     })
   }
 }
